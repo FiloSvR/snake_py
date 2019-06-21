@@ -22,7 +22,7 @@ snake = [
 ]
 
 # Food screen centered
-food = [screenHeight/2, screenWidth/2]
+food = [screenHeight//2, screenWidth//2]
 gameWindow.addch(food[0], food[1], curses.ACS_PI)
 
 snakeDirection = curses.KEY_RIGHT
@@ -31,7 +31,7 @@ while True:
     nextSnakeDirection = gameWindow.getch()
     snakeDirection = snakeDirection if nextSnakeDirection == -1 else nextSnakeDirection
 
-    if snake[0][0] in [0][screenHeight] or snake[0][1] in [0, screenWidth] or snake[0] in snake[1:]:
+    if snake[0][0] in [0, screenHeight] or snake[0][1] in [0, screenWidth] or snake[0] in snake[1:]:
         curses.endwin()
         quit()
     newHead = [snake[0][0], snake[0][1]]
@@ -59,5 +59,7 @@ while True:
         gameWindow.addch(food[0], food[1], curses.ACS_PI)
     else:
         tail = snake.pop()
-        gameWindow.addch(tail[0], tail[1], ' ')
+        gameWindow.addch(int(tail[0]), int(tail[1]), ' ')
+
+    gameWindow.addch(int(snake[0][0]), int(snake[0][1]), curses.ACS_CKBOARD)
 
