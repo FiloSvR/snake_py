@@ -1,7 +1,5 @@
 import random
 import curses
-import snakeModel
-
 
 class SnakeView:
     
@@ -11,7 +9,6 @@ class SnakeView:
         self.screenHight, self.screenWidth = self.screen.getmaxyx()
         # No cursor in the screen
         curses.curs_set(0)
-        self.initFood = [self.screenHight//2, self.screenWidth//2]
 
     def createWindow(self):
         self.gameWindow = curses.newwin(self.screenHight, self.screenWidth, 0, 0)
@@ -21,8 +18,12 @@ class SnakeView:
         return self.gameWindow
     
     def printSnake(self, snake):
-        self.gameWindow.addch(int(snake[0][0]), int(snake[0][1]), curses.ACS_CKBOARD)
-
+        try:
+            self.gameWindow.addch(int(snake[0][0]), int(snake[0][1]), curses.ACS_CKBOARD)
+        except:
+            print("The program couldn't print the snake")
+            self.destroyWindow()
+        
     def printFood(self, food):
         self.gameWindow.addch(food[0], food[1], curses.ACS_PI)
 
@@ -38,5 +39,6 @@ class SnakeView:
 
     def getScreenWidth(self):
         return self.screenWidth
+        
 
 

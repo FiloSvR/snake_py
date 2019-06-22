@@ -1,6 +1,4 @@
 import curses
-import snakeModel
-
 
 class SnakeController:
     
@@ -9,6 +7,7 @@ class SnakeController:
         self.model = model
         self.gameWindow = self.view.createWindow()
         self.model.snakeInit()
+        self.view.printFood(self.model.getFood())
 
     def snakeInitDirection(self):
         self.snakeDirection = curses.KEY_RIGHT
@@ -34,12 +33,13 @@ class SnakeController:
         return True if self.model.getSnake() in [0, self.view.getScreenHigh()] or self.model.getSnake()[0][1] in [0, self.view.getScreenWidth()] or self.model.getSnake()[0] in self.model.getSnake()[1:] else False
 
     def snakeEatFood(self):
-        if self.model.isSnakeEatingFood:
+        if self.model.isSnakeEatingFood():
             newFood = self.model.getNewFood()
             self.view.printFood(newFood)
         else:
             tail = self.model.getSnake().pop()
             self.view.printSnakeTail(tail)
+
     def snakeRefresh(self):
         self.view.printSnake(self.model.getSnake())
 

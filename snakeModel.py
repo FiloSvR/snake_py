@@ -1,4 +1,5 @@
 import random
+
 class SnakeModel():
 
     def __init__(self, screenHight, screenWidth):
@@ -39,5 +40,6 @@ class SnakeModel():
                         random.randint(1, self.screenWidth-1)
                     ]
             food = newFood if newFood not in self.snake else None
+        self.food = newFood
         return newFood
 

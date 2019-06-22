@@ -1,5 +1,3 @@
-import random
-import curses
 from snakeView import SnakeView
 from snakeModel import SnakeModel
 from snakeController import SnakeController
