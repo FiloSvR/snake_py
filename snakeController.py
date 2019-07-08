@@ -3,10 +3,10 @@ import curses
 class SnakeController:
     
     def __init__(self, view, model):
+        # TODO Duck typing implementation to fix
         self.view = view
         self.model = model
         self.gameWindow = self.view.createWindow()
-        self.model.snakeInit()
         self.view.printFood(self.model.getFood())
 
     def snakeInitDirection(self):
@@ -34,7 +34,7 @@ class SnakeController:
 
     def snakeEatFood(self):
         if self.model.isSnakeEatingFood():
-            newFood = self.model.getNewFood()
+            newFood = self.model.getNewFoodCoordinates()
             self.view.printFood(newFood)
         else:
             tail = self.model.getSnake().pop()
