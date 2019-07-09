@@ -6,12 +6,12 @@ class SnakeView:
     def __init__(self):
         self.REFRESH_RATE = 100
         self.screen = curses.initscr()
-        self.screenHight, self.screenWidth = self.screen.getmaxyx()
+        self.screenHeight, self.screenWidth = self.screen.getmaxyx()
         # No cursor in the screen
         curses.curs_set(0)
 
     def createWindow(self):
-        self.gameWindow = curses.newwin(self.screenHight, self.screenWidth, 0, 0)
+        self.gameWindow = curses.newwin(self.screenHeight, self.screenWidth, 0, 0)
         self.gameWindow.keypad(1)
         self.gameWindow.timeout(self.REFRESH_RATE)
         # Food screen centered
@@ -34,11 +34,8 @@ class SnakeView:
         curses.endwin()
         quit()
 
-    def getScreenHigh(self):
-        return self.screenHight
+    def getScreenSizes(self) -> dict:
+        return {"screenHeight": self.screenHeight, "screenWidth" : self.screenWidth}
 
-    def getScreenWidth(self):
-        return self.screenWidth
-        
 
 

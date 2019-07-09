@@ -3,7 +3,6 @@ import curses
 class SnakeController:
     
     def __init__(self, view, model):
-        # TODO Duck typing implementation to fix
         self.view = view
         self.model = model
         self.gameWindow = self.view.createWindow()
@@ -17,7 +16,7 @@ class SnakeController:
         self.snakeDirection = self.snakeDirection if self.nextSnakeDirection == -1 else self.nextSnakeDirection
 
     def snakeNewHead(self):
-        newHead = [self.model.getSnake()[0][0], self.model.getSnake()[0][1]]
+        newHead = [self.model.getSnakeCoordinates()[0][0], self.model.getSnakeCoordinates()[0][1]]
         # Snake control
         if self.snakeDirection == curses.KEY_DOWN:
             newHead[0] += 1
@@ -30,18 +29,22 @@ class SnakeController:
         self.model.insertSnakeHead(newHead)
     
     def snakeIsDied(self):
-        return True if self.model.getSnake() in [0, self.view.getScreenHigh()] or self.model.getSnake()[0][1] in [0, self.view.getScreenWidth()] or self.model.getSnake()[0] in self.model.getSnake()[1:] else False
+        screenSize = self.view.getScreenSizes()
+        snakeCoordinates = self.model.getSnakeCoordinates()
+        screenHeight = screenSize["screenHeight"]
+        screenWidth = screenSize["screenWidth"]
+        return True if snakeCoordinates in [0, screenHeight] or snakeCoordinates[0][1] in [0, screenWidth] or snakeCoordinates[0] in snakeCoordinates[1:] else False
 
     def snakeEatFood(self):
         if self.model.isSnakeEatingFood():
             newFood = self.model.getNewFoodCoordinates()
             self.view.printFood(newFood)
         else:
-            tail = self.model.getSnake().pop()
+            tail = self.model.getSnakeCoordinates().pop()
             self.view.printSnakeTail(tail)
 
     def snakeRefresh(self):
-        self.view.printSnake(self.model.getSnake())
+        self.view.printSnake(self.model.getSnakeCoordinates())
 
     def closeGame(self):
         self.view.destroyWindow()

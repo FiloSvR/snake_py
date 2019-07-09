@@ -3,7 +3,7 @@ from snakeModel import SnakeModel
 from snakeController import SnakeController
 
 view = SnakeView()
-model = SnakeModel(view.getScreenHigh(), view.getScreenWidth())
+model = SnakeModel(view.getScreenSizes())
 controller = SnakeController(view, model)
 
 controller.snakeInitDirection()

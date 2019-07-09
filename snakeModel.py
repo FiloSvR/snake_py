@@ -6,19 +6,17 @@ class SnakeModel():
     SNAKE_SCREEN_WIDTH_POSITIONING = 4
     FOOD_SCREEN_POSITIONING = 2
 
-    def __init__(self, screenHeight: int, screenWidth: int):
-        # TODO How do I clean this IF ??
-        if  not isinstance(screenHeight, int) or not isinstance(screenWidth, int):
+    def __init__(self, screenSize):
+        if  screenSize is None or not isinstance(screenSize['screenHeight'], int) or not isinstance(screenSize['screenWidth'], int):
             raise TypeError
-        if screenHeight < self.SNAKE_SCREEN_HEIGHT_POSITIONING or screenWidth < self.SNAKE_SCREEN_WIDTH_POSITIONING:
+        if screenSize["screenHeight"] < self.SNAKE_SCREEN_HEIGHT_POSITIONING or screenSize["screenWidth"] < self.SNAKE_SCREEN_WIDTH_POSITIONING:
             raise ValueError
-
-        self.screenHeight = screenHeight
-        self.screenWidth = screenWidth
-        self.snakeInit()
-        self.foodInit()
-        
-    def snakeInit(self):
+        self.screenHeight = screenSize["screenHeight"]
+        self.screenWidth = screenSize["screenWidth"]
+        self.foodCoordinates = [
+            self.screenHeight//self.FOOD_SCREEN_POSITIONING, 
+            self.screenWidth//self.FOOD_SCREEN_POSITIONING
+            ]
         snake_x = self.screenWidth//self.SNAKE_SCREEN_WIDTH_POSITIONING
         snake_y = self.screenHeight//self.SNAKE_SCREEN_HEIGHT_POSITIONING
         self.snakeCoordinates = [
@@ -27,14 +25,11 @@ class SnakeModel():
             [snake_y, snake_x-2],
         ]
 
-    def foodInit(self):
-        self.foodCoordinates = [self.screenHeight//self.FOOD_SCREEN_POSITIONING, self.screenWidth//self.FOOD_SCREEN_POSITIONING]
-
     def insertSnakeHead(self, head: list):
-        if head is None:
-            raise TypeError
         if len(head) is not 2:
             raise ValueError
+        if head is None or not isinstance(head[0], int) or not isinstance(head[1], int):
+            raise TypeError
         self.snakeCoordinates.insert(0, head)
     
     def isSnakeEatingFood(self):
@@ -43,10 +38,10 @@ class SnakeModel():
     def getFood(self):
         return self.foodCoordinates
     
-    def getSnake(self):
+    def getSnakeCoordinates(self) -> list:
         return self.snakeCoordinates
 
-    def getNewFoodCoordinates(self):
+    def getNewFoodCoordinates(self) -> list:
         food = None
         while food is None:
             newFoodCoordinates = [
@@ -56,6 +51,3 @@ class SnakeModel():
             food = newFoodCoordinates if newFoodCoordinates not in self.snakeCoordinates else None
         self.foodCoordinates = newFoodCoordinates
         return newFoodCoordinates
-
-    def setFoodCoordinates(self, newFood):
-        self.foodCoordinates = newFood
