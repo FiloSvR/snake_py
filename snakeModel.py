@@ -35,7 +35,7 @@ class SnakeModel():
     def isSnakeEatingFood(self):
         return True if self.snakeCoordinates[0] == self.foodCoordinates else False
     
-    def getFood(self):
+    def getFoodCoordinates(self):
         return self.foodCoordinates
     
     def getSnakeCoordinates(self) -> list:
