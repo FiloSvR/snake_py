@@ -33,19 +33,28 @@ class SnakeController:
         screenHeight = screenSize["screenHeight"]
         screenWidth = screenSize["screenWidth"]
         # TODO The last check should be improved, so if a snake do a oppsite direction change it does not die
-        return True if snakeCoordinates in [0, screenHeight] or snakeCoordinates[0][1] in [0, screenWidth] or snakeCoordinates[0] in snakeCoordinates[1:] else False
+        return True if snakeCoordinates[0][0] in [0, screenHeight] or snakeCoordinates[0][1] in [0, screenWidth] or snakeCoordinates[0] in snakeCoordinates[1:] else False
 
     def snakeEatFood(self):
-        if self.model.isSnakeEatingFood():
-            newFood = self.model.getNewFoodCoordinates()
-            self.view.printFood(newFood)
-        else:
-            tail = self.model.getSnakeCoordinates().pop()
-            self.view.printSnakeTail(tail)
+        try:
+            if self.model.isSnakeEatingFood():
+                newFood = self.model.getNewFoodCoordinates()
+                self.view.printFood(newFood)
+            else:
+                tail = self.model.getSnakeCoordinates().pop()
+                self.view.printSnakeTail(tail)
+        except Exception as exception:
+            print("SnakeEatFood: " + exception)
+            self.closeGame(exception)
 
     def snakeRefresh(self):
-        self.view.printSnake(self.model.getSnakeCoordinates())
+        try:
+            self.view.printSnake(self.model.getSnakeCoordinates())
+        except Exception as exception:
+            print("SnakeRefresh: " + exception)
+            self.closeGame(exception)
 
-    def closeGame(self):
+    def closeGame(self, reason: str):
         self.view.destroyWindow()
+        print("Game ended because " + reason)
         quit()

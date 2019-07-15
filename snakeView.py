@@ -20,25 +20,32 @@ class SnakeView:
             raise TypeError
         if len(snake) < 1 or len(snake[0]) < 2:
             raise ValueError
-        if not isinstance(snake[0][1], int) or not isinstance(snake[0][0], int):
+        snake_y = snake[0][0]
+        snake_x = snake[0][1]
+        if not isinstance(snake_x, int) or not isinstance(snake_y, int):
             raise TypeError
-        if snake[0][1] >= self.screenWidth or snake[0][0] >= self.screenHeight:
+        if snake_y > self.screenHeight or snake_x > self.screenWidth:
             raise ValueError
         try:
-            self.gameWindow.addch(snake[0][0], snake[0][1], curses.ACS_CKBOARD)
+            self.gameWindow.addch(snake_y, snake_x, curses.ACS_CKBOARD)
         except Exception:
-            self.destroyWindow()
             raise curses.error
         
     def printFood(self, food):
-        self.gameWindow.addch(food[0], food[1], curses.ACS_PI)
+        try:
+            self.gameWindow.addch(food[0], food[1], curses.ACS_PI)
+        except Exception:
+            raise curses.error
 
     def printSnakeTail(self, tail):
         if len(tail) is not 2:
             raise ValueError
         if tail is None or not isinstance(tail[0], int) or not isinstance(tail[1], int):
             raise TypeError
-        self.gameWindow.addch(int(tail[0]), int(tail[1]), ' ')
+        try:
+            self.gameWindow.addch(int(tail[0]), int(tail[1]), ' ')
+        except Exception:
+            raise curses.error    
 
     def destroyWindow(self):
         curses.endwin()

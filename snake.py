@@ -10,9 +10,9 @@ controller.snakeInitDirection()
 
 while True:
     controller.snakeNextDirection()
-    if controller.snakeIsDied():
-        controller.closeGame()
     controller.snakeNewHead()
+    if controller.snakeIsDied():
+        controller.closeGame("you died!")
     controller.snakeEatFood()
     controller.snakeRefresh()
 
