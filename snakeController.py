@@ -41,8 +41,8 @@ class SnakeController:
                 newFood = self.model.getNewFoodCoordinates()
                 self.view.printFood(newFood)
             else:
-                tail = self.model.getSnakeCoordinates().pop()
-                self.view.printSnakeTail(tail)
+                pass#tail = self.model.getSnakeCoordinates().pop()
+                #self.view.printSnakeTail(tail)
         except Exception as exception:
             print("SnakeEatFood: " + exception)
             self.closeGame(exception)

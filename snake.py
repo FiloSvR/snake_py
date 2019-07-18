@@ -1,8 +1,8 @@
-from snakeView import SnakeView
+from snakeArcadeView import SnakeArcadeView
 from snakeModel import SnakeModel
 from snakeController import SnakeController
 
-view = SnakeView()
+view = SnakeArcadeView()
 model = SnakeModel(view.getScreenSizes())
 controller = SnakeController(view, model)
 
@@ -14,5 +14,5 @@ while True:
     if controller.snakeIsDied():
         controller.closeGame("you died!")
     controller.snakeEatFood()
-    controller.snakeRefresh()
+    controller. ()
 

@@ -12,7 +12,7 @@ class TestSnakeView(unittest.TestCase):
         self.assertRaises(ValueError, view.printSnake, [[500, 500-1],[500, None], [500, 500-2]])
         self.assertRaises(ValueError, view.printSnake, [[500]])
 
-    def test_printFood(slef):
+    def test_printFood(self):
         pass
     
     def test_printSnakeTail(self):
